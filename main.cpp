@@ -10,22 +10,22 @@
 #include<vector>
 #include"myfun.h"
 void test_For(string s1, double(*Fun)(double present[], int DIM), double low, double high);
-//ÒÅ´«Ëã·¨ GA for jiga
+//é—ä¼ ç®—æ³• GA
 
 using namespace std;
 using   std::numeric_limits;
 
-#define Div 30							//Î¬¶È            *****ĞèÒª¸ü¸Ä******   
-#define size_population 1000		//ÖÖÈº´óĞ¡
-#define EVO_maxGen 100				//µü´ú´ÎÊı
-#define numOfRun_Fun 30			//ÔËĞĞÒ»¸öº¯ÊıµÄ´ÎÊı
+#define Div 30							//ç»´åº¦            *****éœ€è¦æ›´æ”¹******   
+#define size_population 1000		//ç§ç¾¤å¤§å°
+#define EVO_maxGen 100				//è¿­ä»£æ¬¡æ•°
+#define numOfRun_Fun 30			//è¿è¡Œä¸€ä¸ªå‡½æ•°çš„æ¬¡æ•°
 
 #define rnd(low, uper) ((rand() / (double)RAND_MAX)*((uper)-(low)) + (low))
 
-#define possibility_Crossover 0.8		//½»Åä¸ÅÂÊ 
-#define possibility_Mutation 0.05		//±äÒì¸ÅÂÊ ×î¼Ñ0.03¡¾´ËÊ±½»ÅäÊÇ0.8¡¿
-#define sizeOfTournament 0.2			//¾º±êÈü¹æÄ£
-double   lowBound[Div], upperBound[Div];  //ÖÖÈºÖĞ¸öÌåµÄ·¶Î§£¬   *****ĞèÒª¸ü¸Ä******  
+#define possibility_Crossover 0.8		//äº¤é…æ¦‚ç‡ 
+#define possibility_Mutation 0.05		//å˜å¼‚æ¦‚ç‡ æœ€ä½³0.03ã€æ­¤æ—¶äº¤é…æ˜¯0.8ã€‘
+#define sizeOfTournament 0.2			//ç«æ ‡èµ›è§„æ¨¡
+double   lowBound[Div], upperBound[Div];  //ç§ç¾¤ä¸­ä¸ªä½“çš„èŒƒå›´ï¼Œ   *****éœ€è¦æ›´æ”¹******  
 
 
 
@@ -36,7 +36,7 @@ public:
 
 	double(*myFun)(double present[], int DIM) = f1;
 public:
-	//³õÊ¼»¯¸öÌå£¬Ëæ»úÉú³É¶¨ÒåÓòÄÚ×ø±ê£¬²¢ÉèÖÃÀúÊ·×îºÃ×ø±êÎªÕâ¸ö×ø±ê£¬Í¬Ê±¼ÆËãÊÊÓ¦Öµ
+	//åˆå§‹åŒ–ä¸ªä½“ï¼Œéšæœºç”Ÿæˆå®šä¹‰åŸŸå†…åæ ‡ï¼Œå¹¶è®¾ç½®å†å²æœ€å¥½åæ ‡ä¸ºè¿™ä¸ªåæ ‡ï¼ŒåŒæ—¶è®¡ç®—é€‚åº”å€¼
 	void init(){
 		for (int i = 0; i < Div; i++){
 			X[i] = rnd(lowBound[i], upperBound[i]);
@@ -60,7 +60,7 @@ public:
 			X[j] = tmp.X[j];
 		}
 	}
-	//µ¥µã½»²æ
+	//å•ç‚¹äº¤å‰
 	void crossover_With(Individual &tmp){
 		int cross_pos = rnd(1, Div - 2);
 		for (int i = 0; i < cross_pos; i++){
@@ -80,9 +80,9 @@ public:
 
 
 	void  selection_Bet(){
-		/*ÂÖÅÌ¶ÄÑ¡Ôñ£¬GA±¾À´ÊÇÇóÊÊÓ¦Öµ×î´óµÄ£¬
-		Èç¹ûÇóÊÊÓ¦Öµ×îĞ¡µÄ»°£¬×¢Òâ¡¾Èç¹ûÖ»¸Ä´óÓÚĞ¡ÓÚºÅ¡¿£¬ÂÖÅÌ¶ÄµÄ¸ÅÂÊ¾Í»á·´Ïò£¬±ä³ÉºÃµÄ½â¸ÅÂÊĞ¡£¬
-		Èç¹ûÖ±½Ó½«ÊÊÓ¦Öµ±ä³Éµ¹Êı£¬ÓÖÒª×¢Òâ£¬ÊÊÓ¦ÖµÎª¸ºÊıµÄÇé¿ö£¬²»ÊÇµ¥´¿µÄÎŞÇî´ó¸ú0µÄ¹ØÏµ¡£
+		/*è½®ç›˜èµŒé€‰æ‹©ï¼ŒGAæœ¬æ¥æ˜¯æ±‚é€‚åº”å€¼æœ€å¤§çš„ï¼Œ
+		å¦‚æœæ±‚é€‚åº”å€¼æœ€å°çš„è¯ï¼Œæ³¨æ„ã€å¦‚æœåªæ”¹å¤§äºå°äºå·ã€‘ï¼Œè½®ç›˜èµŒçš„æ¦‚ç‡å°±ä¼šåå‘ï¼Œå˜æˆå¥½çš„è§£æ¦‚ç‡å°ï¼Œ
+		å¦‚æœç›´æ¥å°†é€‚åº”å€¼å˜æˆå€’æ•°ï¼Œåˆè¦æ³¨æ„ï¼Œé€‚åº”å€¼ä¸ºè´Ÿæ•°çš„æƒ…å†µï¼Œä¸æ˜¯å•çº¯çš„æ— ç©·å¤§è·Ÿ0çš„å…³ç³»ã€‚
 		*/
 		double fitness_Sum = 0;
 		for (int i = 0; i < size_population; i++)
@@ -93,7 +93,7 @@ public:
 		for (int i = 0; i < size_population; i++){
 			possibility[i] = population[i].fitness_now / fitness_Sum;
 		}
-		//Éú³ÉĞÂÖÖÈº
+		//ç”Ÿæˆæ–°ç§ç¾¤
 		for (int i = 0; i < size_population; i++)
 		{
 			//select
@@ -111,9 +111,9 @@ public:
 		delete[] possibility;
 	}
 
-	void  selection_tournament(){//½õ±êÈüÑ¡Ôñ·½·¨ tournament selection model
+	void  selection_tournament(){//é”¦æ ‡èµ›é€‰æ‹©æ–¹æ³• tournament selection model
 		
-		//Éú³ÉĞÂÖÖÈº
+		//ç”Ÿæˆæ–°ç§ç¾¤
 		for (int i = 0; i < size_population; i++){
 			//select
 			int selectIndex = (int)rnd(0, size_population - 1);
@@ -129,9 +129,9 @@ public:
 
 
 	/*
-	void  selection_theBest(){//×î¼Ñ¸öÌå±£´æ·¨1 ÕÒ³ö×î¼ÑÓë×î²î¡£2 Èô×î¼Ñ±È¼ÇÂ¼×î¼ÑºÃ£¬Ôò¸üĞÂ¼ªÄáË¹¼ÇÂ¼¡£ 3 °Ñ×î²îµÄ»»³É×î¼Ñ
+	void  selection_theBest(){//æœ€ä½³ä¸ªä½“ä¿å­˜æ³•1 æ‰¾å‡ºæœ€ä½³ä¸æœ€å·®ã€‚2 è‹¥æœ€ä½³æ¯”è®°å½•æœ€ä½³å¥½ï¼Œåˆ™æ›´æ–°å‰å°¼æ–¯è®°å½•ã€‚ 3 æŠŠæœ€å·®çš„æ¢æˆæœ€ä½³
 	update_MyBest();
-	//×î²î
+	//æœ€å·®
 	double tmp = (population[0].fitness());
 	int worstIndex = 0;
 
@@ -141,7 +141,7 @@ public:
 	worstIndex = i;
 	}
 	}
-	//±£´æ
+	//ä¿å­˜
 	for (int i = 0; i < Div; i++)
 	population[worstIndex].X[i] = MyBest_pos[i];
 
@@ -171,7 +171,7 @@ public:
 			if (rnd(0, 1) < possibility_Crossover)
 				cross->push_back(i);
 		}
-		//Ï´ÅÆ
+		//æ´—ç‰Œ
 		int index, tmp;
 		for (int i = (cross->size() - 1); i>0; i--)
 		{
@@ -180,7 +180,7 @@ public:
 			(*cross)[i] = (*cross)[index];
 			(*cross)[index] = tmp;
 		}
-		//½»²æ
+		//äº¤å‰
 		for (int i = 0; i < (int)(cross->size() / 2); i++)
 		{
 			int q1 = (*cross)[i];
@@ -211,8 +211,8 @@ public:
 		}
 	}
 
-	void update_MyBest(){//±£´æÖÖÈºÖĞÊÊÓ¦Öµ×îĞ¡µÄÈ¾É«Ìå
-		//ÆÀ¼ÛÊÊÓ¦Öµ
+	void update_MyBest(){//ä¿å­˜ç§ç¾¤ä¸­é€‚åº”å€¼æœ€å°çš„æŸ“è‰²ä½“
+		//è¯„ä»·é€‚åº”å€¼
 		for (int i = 0; i < size_population; i++)
 			population[i].fitness();
 
@@ -226,7 +226,7 @@ public:
 			}
 		}
 		if (minFitness < MyBest){//***************************
-			//±£´æ
+			//ä¿å­˜
 			for (int i = 0; i < Div; i++)
 				MyBest_pos[i] = population[minIndex].X[i];
 			MyBest = minFitness;
@@ -240,7 +240,7 @@ public:
 		for (int i = 0; i < size_population; i++){
 			population[i].init();
 		}
-		//±£´æÖÖÈºÖĞÊÊÓ¦Öµ×î´óµÄÈ¾É«Ìå
+		//ä¿å­˜ç§ç¾¤ä¸­é€‚åº”å€¼æœ€å¤§çš„æŸ“è‰²ä½“
 		double minFitness = (population[0].fitness());
 		int minIndex = 0;
 
@@ -250,7 +250,7 @@ public:
 				minIndex = i;
 			}
 		}
-		//±£´æ
+		//ä¿å­˜
 		for (int i = 0; i < Div; i++)
 			MyBest_pos[i] = population[minIndex].X[i];
 		MyBest = minFitness;
@@ -259,7 +259,7 @@ public:
 
 	void run(){
 		int gen = 0;
-		//runÖ®Ç°ÔËĞĞinit;init°üº¬ÁË ±£´æ×î¼ÑÈ¾É«Ìå
+		//runä¹‹å‰è¿è¡Œinit;initåŒ…å«äº† ä¿å­˜æœ€ä½³æŸ“è‰²ä½“
 		while (gen < EVO_maxGen){
 			selection_tournament();
 
